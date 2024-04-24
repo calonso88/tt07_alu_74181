@@ -87,6 +87,8 @@ module alu_74181_logic (a, b, s, f);
         temp = a;
       end
 
+    endcase
+
   end
 
 endmodule
