@@ -16,28 +16,29 @@ project:
   # List your project's source files here. Source files must be in ./src and you must list each source file separately, one per line:
   source_files:        
     - "tt_um_calonso88_74181.v"
+    - "alu_74181.sv"
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 pinout:
   # Inputs
-  ui[0]: "\A0"
-  ui[1]: "\A1"
-  ui[2]: "\A2"
-  ui[3]: "\A3"
-  ui[4]: "\B0"
-  ui[5]: "\B1"
-  ui[6]: "\B2"
-  ui[7]: "\B3"
+  ui[0]: "/A0"
+  ui[1]: "/A1"
+  ui[2]: "/A2"
+  ui[3]: "/A3"
+  ui[4]: "/B0"
+  ui[5]: "/B1"
+  ui[6]: "/B2"
+  ui[7]: "/B3"
 
   # Outputs
-  uo[0]: "\F0"
-  uo[1]: "\F1"
-  uo[2]: "\F2"
-  uo[3]: "\F3"
-  uo[4]: "\Cn4"
+  uo[0]: "/F0"
+  uo[1]: "/F1"
+  uo[2]: "/F2"
+  uo[3]: "/F3"
+  uo[4]: "/Cn4"
   uo[5]: "A_equals_B"
-  uo[6]: "\P"
-  uo[7]: "\G"
+  uo[6]: "/P"
+  uo[7]: "/G"
 
   # Bidirectional pins
   uio[0]: "S0"
