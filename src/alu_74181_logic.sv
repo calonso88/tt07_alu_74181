@@ -4,7 +4,7 @@ module alu_74181_logic (a, b, s, f);
   output logic [3:0] f;
   
   // Function types
-  typedef enum logic [3:0] {
+  typedef logic [3:0] {
     FUNC_00, FUNC_01, FUNC_02, FUNC_03, FUNC_04, FUNC_05, FUNC_06, FUNC_07, FUNC_08, FUNC_09, FUNC_10, FUNC_11, FUNC_12, FUNC_13, FUNC_14, FUNC_15
   } func_type;
 
