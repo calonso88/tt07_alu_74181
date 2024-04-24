@@ -9,7 +9,8 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## How it works
 
-Explain how your project works
+Replica of the famous 4-bit slice arithmetic logic unit (ALU).
+https://en.wikipedia.org/wiki/74181
 
 ## How to test
 
