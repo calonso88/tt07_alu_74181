@@ -5,7 +5,14 @@ module alu_74181 (a, b, cn, s, m, f, cn4, equal, p, g);
   output logic [3:0] f;
   output logic cn4, equal, p, g;
 
-  assign f = '0;
+  // Auxiliar signals
+  logic [3:0] f_logic;
+
+  // Instance for logic operations
+  alu_74181_logic alu_74181_logic_inst (.a(a), .b(b), .s(s), .f(f_logic));
+
+  // Outputs
+  assign f = f_logic;
   assign cn4 = '0;
   assign equal = '0;
   assign p = '0;

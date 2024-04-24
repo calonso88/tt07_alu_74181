@@ -17,6 +17,8 @@ project:
   source_files:        
     - "tt_um_calonso88_74181.v"
     - "alu_74181.sv"
+    - "alu_74181_logic.sv"
+    - "alu_74181_arith.sv"
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 pinout:

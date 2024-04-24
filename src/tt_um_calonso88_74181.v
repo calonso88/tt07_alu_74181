@@ -42,6 +42,6 @@ module tt_um_calonso88_74181 (
   assign uio_out = '0;
 
   // Instance
-  alu_74181 alu_74181_inst (a, b, cn, s, m, f, cn4, equal, p, g);
+  alu_74181 alu_74181_inst (.a(a), .b(b), .cn(cn), .s(s), .m(m), .f(f), .cn4(cn4), .equal(equal), .p(p), .g(g));
 
 endmodule
