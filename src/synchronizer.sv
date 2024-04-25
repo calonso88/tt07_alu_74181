@@ -7,8 +7,8 @@ module synchronizer #(parameter int WIDTH = 4) (rstb, clk, ena, data_in, data_ou
 
   output logic [WIDTH-1:0] data_out;
 
-  logic data_sync;
-  logic data_sync2;
+  logic [WIDTH-1:0] data_sync;
+  logic [WIDTH-1:0] data_sync2;
 
   always_ff @(negedge(rstb) or posedge(clk)) begin
     if (!rstb) begin
