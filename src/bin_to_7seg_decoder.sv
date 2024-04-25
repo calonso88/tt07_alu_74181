@@ -6,6 +6,16 @@ module bin_to_7seg_decoder (bin, a, b, c, d, e, f, g, dp);
   // Auxiliar signals
   logic [7:0] temp;
 
+  // Outputs
+  assign a = temp[7];
+  assign b = temp[6];
+  assign c = temp[5];
+  assign d = temp[4];
+  assign e = temp[3];
+  assign f = temp[2];
+  assign g = temp[1];
+  assign dp = temp[0];
+  
   // Implement logical operation based on selection
   always_comb begin
 
@@ -81,14 +91,6 @@ module bin_to_7seg_decoder (bin, a, b, c, d, e, f, g, dp);
       
     endcase
 
-  // Outputs
-  assign a = temp[7];
-  assign b = temp[6];
-  assign c = temp[5];
-  assign d = temp[4];
-  assign e = temp[3];
-  assign f = temp[2];
-  assign g = temp[1];
-  assign dp = temp[0];
+  end
 
 endmodule
