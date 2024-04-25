@@ -19,6 +19,7 @@ project:
     - "alu_74181.sv"
     - "alu_74181_logic.sv"
     - "alu_74181_arith.sv"
+    - "bin_to_7seg_decode.sv"
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 pinout:
