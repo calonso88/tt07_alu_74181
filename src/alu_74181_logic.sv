@@ -13,7 +13,8 @@ module alu_74181_logic (a, b, s, f);
   logic [3:0] temp;
 
   // Function selector
-  assign func = func_type'(s);
+  //assign func = func_type'(s);
+  assign func = s;
 
   // Outputs
   assign f = temp;
