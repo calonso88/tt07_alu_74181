@@ -19,7 +19,7 @@ module bin_to_7seg_decoder (bin, a, b, c, d, e, f, g, dp);
   // Implement logical operation based on selection
   always_comb begin
 
-    case (s)
+    case (bin)
       
       4'b0000: begin
         temp = 8'b11111100;
