@@ -10,7 +10,7 @@ module alu_74181_arith (a, b, s, cn, f, cn4);
   logic [4:0] temp_cn;
 
   // Add carry
-  assign temp_cn = temp + cn;
+  assign temp_cn = temp + { 4'b0000, cn };
 
   // Outputs
   assign f = cn ? temp_cn[3:0] : temp[3:0];
