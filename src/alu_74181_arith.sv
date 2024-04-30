@@ -22,15 +22,15 @@ module alu_74181_arith (a, b, s, cn, f, cn4);
     case (s)
       
       4'b0000: begin
-        temp = a;
+        temp = { 1'b0, a };
       end
 
       4'b0001 : begin
-        temp = a | b;
+        temp = { 1'b0, (a | b) };
       end
 
       4'b0010 : begin
-        temp = a | (~b);
+        temp = { 1'b0, (a | (~b)) };
       end
 
       4'b0011 : begin
@@ -38,51 +38,51 @@ module alu_74181_arith (a, b, s, cn, f, cn4);
       end
       
       4'b0100 : begin
-        temp = a + (a & (~b));
+        temp = { 1'b0, a } + { 1'b0, (a & (~b)) };
       end
 
       4'b0101 : begin
-        temp = (a | b) + (a & (~b));
+        temp = { 1'b0, (a | b) } + { 1'b0, (a & (~b)) };
       end
 
       4'b0110 : begin
-        temp = a - b - 1'b1;
+        temp = { 1'b0, a } - { 1'b0, b } - { 1'b0, 4'b0001 };
       end
 
       4'b0111 : begin
-        temp = (a & (~b)) - 1'b1;
+        temp = { 1'b0, (a & (~b)) } - { 1'b0, 4'b0001 };
       end
 
       4'b1000 : begin
-        temp = a + (a & b);
+        temp = { 1'b0, a } + { 1'b0, (a & b) };
       end
 
       4'b1001 : begin
-        temp = a + b;
+        temp = { 1'b0, a } + { 1'b0, b };
       end
 
       4'b1010 : begin
-        temp = (a | (~b)) + (a & b);
+        temp = { 1'b0, (a | (~b)) } + { 1'b0, (a & b) };
       end
 
       4'b1011 : begin
-        temp = (a & b) - 1'b1;
+        temp = { 1'b0, (a & b) } - { 1'b0, 4'b0001 };
       end
 
       4'b1100 : begin
-        temp = a + a;
+        temp = { 1'b0, a } + { 1'b0, a };
       end
 
       4'b1101 : begin
-        temp = (a | b) + a;
+        temp = { 1'b0, (a | b) } + { 1'b0, a };
       end
 
       4'b1110 : begin
-        temp = (a | (~b)) + a;
+        temp = { 1'b0, (a | (~b)) } + { 1'b0, a };
       end
 
       4'b1111 : begin
-        temp = a - 1'b1;
+        temp = { 1'b0, a } - { 1'b0, 4'b0001 };
       end
 
       default : begin
