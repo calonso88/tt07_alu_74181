@@ -80,12 +80,13 @@ module tt_um_calonso88_74181 (
   wire [7:0] decod;
 
   // Assign config regs
-  assign a = config_regs[7:0];    // [0]
-  assign b = config_regs[15:8];   // [1]
+  assign a = config_regs[7:0];    // [0][7:0]
+  assign b = config_regs[15:8];   // [1][7:0]
   assign s = config_regs[19:16];  // [2][3:0]
   assign m = config_regs[20];     // [2][4]
   assign c_in0 = config_regs[21]; // [2][5]
-  assign decod_sel = config_regs[23:22]; // [2][7:6]
+                                  // [2][7:6] unused
+  assign decod_sel = config_regs[26:24]; // [3][2:0]
 
   // Assign status regs
   assign status_regs[7:0]   = f; // [0]
