@@ -59,8 +59,8 @@ module tt_um_calonso88_74181 (
   synchronizer #(.WIDTH(1)) synchronizer_spi_mode_cpha (.rstb(rst_n), .clk(clk), .ena(ena), .data_in(cpha), .data_out(cpha_sync));
 
   // Amount of CFG Regs and Status Regs + Regs Width
-  localparam int NUM_CFG = 4;
-  localparam int NUM_STATUS = 4;
+  localparam int NUM_CFG = 8;
+  localparam int NUM_STATUS = 8;
   localparam int REG_WIDTH = 8;
 
   // Config Regs and Status Regs
