@@ -78,6 +78,7 @@ module tt_um_calonso88_74181 (
   wire c_out1, equal1, p1, g1;
   wire [2:0] decod_sel;
   wire [7:0] decod;
+  wire comb;
 
   // Assign config regs
   assign a = config_regs[7:0];    // [0][7:0]
@@ -87,12 +88,13 @@ module tt_um_calonso88_74181 (
   assign c_in0 = config_regs[21]; // [2][5]
                                   // [2][7:6] unused
   assign decod_sel = config_regs[26:24]; // [3][2:0]
+  assign comb = |config_regs;
 
   // Assign status regs
-  assign status_regs[7:0]   = f; // [0][7:0]
-  assign status_regs[15:8]  = {c_out0, equal0, p0, g0, c_out1, equal1, p1, g1}; // [1][7:0]
-  assign status_regs[23:16] = decod; // [2][7:0]
-  assign status_regs[31:24] = 8'h00;
+  //assign status_regs[7:0]   = f; // [0][7:0]
+  //assign status_regs[15:8]  = {c_out0, equal0, p0, g0, c_out1, equal1, p1, g1}; // [1][7:0]
+  //assign status_regs[23:16] = decod; // [2][7:0]
+  //assign status_regs[31:24] = 8'h00;
 
   // 74181 ALU
   //alu_74181 alu_74181_i0 (.a(a[3:0]), .b(b[3:0]), .cn(c_in0),  .s(s), .m(m), .f(f[3:0]), .cn4(c_out0), .equal(equal0), .p(p0), .g(g0));
