@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2024 Caio Alonso da Costa
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 module bin_to_7seg_decoder (bin, a, b, c, d, e, f, g, dp);
 
   input logic [3:0] bin;
