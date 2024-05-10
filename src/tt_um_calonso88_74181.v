@@ -89,9 +89,9 @@ module tt_um_calonso88_74181 (
   assign decod_sel = config_regs[26:24]; // [3][2:0]
 
   // Assign status regs
-  assign status_regs[7:0]   = f; // [0]
-  assign status_regs[15:8]  = {c_out0, equal0, p0, g0, c_out1, equal1, p1, g1}; // [1]
-  assign status_regs[23:16] = decod; // [2]
+  assign status_regs[7:0]   = f; // [0][7:0]
+  assign status_regs[15:8]  = {c_out0, equal0, p0, g0, c_out1, equal1, p1, g1}; // [1][7:0]
+  assign status_regs[23:16] = decod; // [2][7:0]
   assign status_regs[31:24] = 8'h00;
   assign status_regs[39:32] = 8'h00;
   assign status_regs[47:40] = 8'h00;
