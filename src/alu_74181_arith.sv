@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2024 Caio Alonso da Costa
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 module alu_74181_arith (a, b, s, cn, f, cn4);
 
   input logic [3:0] a, b, s;
