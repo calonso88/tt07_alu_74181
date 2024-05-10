@@ -71,24 +71,13 @@ module spi_wrapper #(parameter int NUM_CFG = 8, parameter int NUM_STATUS = 8, pa
     end
   end
 
-  // Assign config regs
-  assign config_regs[7:0]   = config_mem[0];
-  assign config_regs[15:8]  = config_mem[1];
-  assign config_regs[23:16] = config_mem[2];
-  assign config_regs[31:24] = config_mem[3];
-  assign config_regs[39:32] = config_mem[4];
-  assign config_regs[47:40] = config_mem[5];
-  assign config_regs[55:48] = config_mem[6];
-  assign config_regs[63:56] = config_mem[7];
-
-  // Assign status regs
-  assign status_int[0] = status_regs[7:0];
-  assign status_int[1] = status_regs[15:8];
-  assign status_int[2] = status_regs[23:16];
-  assign status_int[3] = status_regs[31:24];
-  assign status_int[4] = status_regs[39:32];
-  assign status_int[5] = status_regs[47:40];
-  assign status_int[6] = status_regs[55:48];
-  assign status_int[7] = status_regs[63:56];
+  // Convert to unpacked array
+  generate for (i = 0; i < NUM_STATUS; i = i+1) begin
+    assign status_int[i] = status_regs[i*NUM_STATUS +: REG_WIDTH];
+  end endgenerate
+  // Convert to 1 dimension packed array
+  generate for (i = 0; i < NUM_CFG; i = i+1) begin
+    assign config_regs[i*NUM_CFG +: REG_WIDTH] = config_mem[i];
+  end endgenerate
 
 endmodule
