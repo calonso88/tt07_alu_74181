@@ -97,7 +97,7 @@ module tt_um_calonso88_74181 (
 
   // 74181 ALU
   alu_74181 alu_74181_i0 (.a(a[3:0]), .b(b[3:0]), .cn(c_in0),  .s(s), .m(m), .f(f[3:0]), .cn4(c_out0), .equal(equal0), .p(p0), .g(g0));
-  alu_74181 alu_74181_i0 (.a(a[7:4]), .b(b[7:4]), .cn(c_out0), .s(s), .m(m), .f(f[7:4]), .cn4(c_out1), .equal(equal1), .p(p1), .g(g1));
+  alu_74181 alu_74181_i1 (.a(a[7:4]), .b(b[7:4]), .cn(c_out0), .s(s), .m(m), .f(f[7:4]), .cn4(c_out1), .equal(equal1), .p(p1), .g(g1));
   
   // Binary to 7 segments display decoder
   bin_to_7seg_decoder bin_to_7seg_decoder_inst (.bin(f), .a(decod[0]), .b(decod[1]), .c(decod[2]), .d(decod[3]), .e(decod[4]), .f(decod[5]), .g(decod[6]), .dp(decod[7]));
