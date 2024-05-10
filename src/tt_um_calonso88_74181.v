@@ -76,7 +76,7 @@ module tt_um_calonso88_74181 (
   wire c_in0, m, c_out0, equal0, p0, g0;
   wire [7:0] f;
   wire c_out1, equal1, p1, g1;
-  wire decod_sel;
+  wire [1:0] decod_sel;
   wire [7:0] decod;
 
   // Assign config regs
