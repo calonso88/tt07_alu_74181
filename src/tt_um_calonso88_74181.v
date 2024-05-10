@@ -67,9 +67,6 @@ module tt_um_calonso88_74181 (
   wire [NUM_CFG*REG_WIDTH-1:0] config_regs;
   wire [NUM_STATUS*REG_WIDTH-1:0] status_regs;
 
-  // SPI wrapper
-  spi_wrapper #(.NUM_CFG(NUM_CFG), .NUM_STATUS(NUM_STATUS), .REG_WIDTH(REG_WIDTH)) spi_wrapper_i (.rstb(rst_n), .clk(clk), .ena(ena), .mode({cpol_sync, cpha_sync}), .spi_cs_n(spi_cs_n_sync), .spi_clk(spi_clk_sync), .spi_mosi(spi_mosi_sync), .spi_miso(spi_miso), .config_regs(config_regs), .status_regs(status_regs));
-
   // Auxiliar mapping signals
   wire [7:0] a, b;
   wire [3:0] s;
@@ -87,7 +84,6 @@ module tt_um_calonso88_74181 (
   assign c_in0 = config_regs[21]; // [2][5]
                                   // [2][7:6] unused
   assign decod_sel = config_regs[26:24]; // [3][2:0]
-  assign comb = |config_regs;
 
   // Assign status regs
   assign status_regs[7:0]   = f; // [0][7:0]
@@ -98,6 +94,9 @@ module tt_um_calonso88_74181 (
   assign status_regs[47:40] = 8'h00;
   assign status_regs[55:48] = 8'h00;
   assign status_regs[63:56] = 8'h00;
+
+  // SPI wrapper
+  spi_wrapper #(.NUM_CFG(NUM_CFG), .NUM_STATUS(NUM_STATUS), .REG_WIDTH(REG_WIDTH)) spi_wrapper_i (.rstb(rst_n), .clk(clk), .ena(ena), .mode({cpol_sync, cpha_sync}), .spi_cs_n(spi_cs_n_sync), .spi_clk(spi_clk_sync), .spi_mosi(spi_mosi_sync), .spi_miso(spi_miso), .config_regs(config_regs), .status_regs(status_regs));
 
   // 74181 ALU
   alu_74181 alu_74181_i0 (.a(a[3:0]), .b(b[3:0]), .cn(c_in0),  .s(s), .m(m), .f(f[3:0]), .cn4(c_out0), .equal(equal0), .p(p0), .g(g0));
