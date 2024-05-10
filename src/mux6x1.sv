@@ -39,7 +39,7 @@ module mux6x1 (sel, a, b, c, d, e, f, dout);
       end
 
       default : begin
-        temp = '0;
+        dout = '0;
       end
       
     endcase
