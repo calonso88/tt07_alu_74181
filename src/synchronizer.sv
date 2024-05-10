@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2024 Caio Alonso da Costa
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 module synchronizer #(parameter int WIDTH = 4) (rstb, clk, ena, data_in, data_out);
 
   input logic rstb;
