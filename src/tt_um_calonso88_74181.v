@@ -74,6 +74,7 @@ module tt_um_calonso88_74181 (
   wire [7:0] f;
   wire c_out1, equal1, p1, g1;
   wire [2:0] decod_sel;
+  wire [3:0] bin;
   wire [7:0] decod;
   
   // Assign config regs
@@ -103,9 +104,9 @@ module tt_um_calonso88_74181 (
   alu_74181 alu_74181_i1 (.a(a[7:4]), .b(b[7:4]), .cn(c_out0), .s(s), .m(m), .f(f[7:4]), .cn4(c_out1), .equal(equal1), .p(p1), .g(g1));
 
   // Mux for 7seg display
-  // TBD
+  mux6x1 mux6x1_i (.sel(decod_sel), .a(a[3:0]), .b(a[7:4]), .c(b[3:0]), .d(b[7:4]), .e(f[3:0]), .f(f[7:4]), .dout(bin));
 
   // Binary to 7 segments display decoder
-  bin_to_7seg_decoder bin_to_7seg_decoder_inst (.bin(4'b000), .a(decod[0]), .b(decod[1]), .c(decod[2]), .d(decod[3]), .e(decod[4]), .f(decod[5]), .g(decod[6]), .dp(decod[7]));
+  bin_to_7seg_decoder bin_to_7seg_decoder_inst (.bin(bin), .a(decod[0]), .b(decod[1]), .c(decod[2]), .d(decod[3]), .e(decod[4]), .f(decod[5]), .g(decod[6]), .dp(decod[7]));
 
 endmodule
