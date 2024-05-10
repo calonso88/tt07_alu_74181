@@ -76,19 +76,21 @@ module tt_um_calonso88_74181 (
   wire c_in0, m, c_out0, equal0, p0, g0;
   wire [7:0] f;
   wire c_out1, equal1, p1, g1;
+  wire decod_sel;
   wire [7:0] decod;
 
   // Assign config regs
-  assign a = config_regs[0];
-  assign b = config_regs[1];
-  assign s = config_regs[2][3:0];
-  assign m = config_regs[2][4];
-  assign c_in0 = config_regs[2][5];
+  assign a = config_regs[7:0];    // [0]
+  assign b = config_regs[15:8];   // [1]
+  assign s = config_regs[19:16];  // [2][3:0]
+  assign m = config_regs[20];     // [2][4]
+  assign c_in0 = config_regs[21]; // [2][5]
+  assign decod_sel = config_regs[23:22]; // [2][7:6]
 
   // Assign status regs
-  assign status_regs[7:0]   = f;
-  assign status_regs[15:8]  = {c_out0, equal0, p0, g0, c_out1, equal1, p1, g1};
-  assign status_regs[23:16] = decod;
+  assign status_regs[7:0]   = f; // [0]
+  assign status_regs[15:8]  = {c_out0, equal0, p0, g0, c_out1, equal1, p1, g1}; // [1]
+  assign status_regs[23:16] = decod; // [2]
   assign status_regs[31:24] = 8'h00;
   assign status_regs[39:32] = 8'h00;
   assign status_regs[47:40] = 8'h00;
@@ -98,7 +100,10 @@ module tt_um_calonso88_74181 (
   // 74181 ALU
   alu_74181 alu_74181_i0 (.a(a[3:0]), .b(b[3:0]), .cn(c_in0),  .s(s), .m(m), .f(f[3:0]), .cn4(c_out0), .equal(equal0), .p(p0), .g(g0));
   alu_74181 alu_74181_i1 (.a(a[7:4]), .b(b[7:4]), .cn(c_out0), .s(s), .m(m), .f(f[7:4]), .cn4(c_out1), .equal(equal1), .p(p1), .g(g1));
-  
+
+  // Mux for 7seg display
+  // TBD
+
   // Binary to 7 segments display decoder
   bin_to_7seg_decoder bin_to_7seg_decoder_inst (.bin(f), .a(decod[0]), .b(decod[1]), .c(decod[2]), .d(decod[3]), .e(decod[4]), .f(decod[5]), .g(decod[6]), .dp(decod[7]));
 
