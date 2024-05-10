@@ -105,6 +105,6 @@ module tt_um_calonso88_74181 (
   // TBD
 
   // Binary to 7 segments display decoder
-  bin_to_7seg_decoder bin_to_7seg_decoder_inst (.bin(f), .a(decod[0]), .b(decod[1]), .c(decod[2]), .d(decod[3]), .e(decod[4]), .f(decod[5]), .g(decod[6]), .dp(decod[7]));
+  bin_to_7seg_decoder bin_to_7seg_decoder_inst (.bin(4'b000), .a(decod[0]), .b(decod[1]), .c(decod[2]), .d(decod[3]), .e(decod[4]), .f(decod[5]), .g(decod[6]), .dp(decod[7]));
 
 endmodule
