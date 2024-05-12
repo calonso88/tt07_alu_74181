@@ -72,14 +72,14 @@ module spi_wrapper #(parameter int NUM_CFG = 8, parameter int NUM_STATUS = 8, pa
   end
 
   // Generate variable
-  genvar j;
+  genvar x, y;
   // Convert to unpacked array
-  generate for (j = 0; j < NUM_STATUS; j = j+1) begin
-    assign status_int[j] = status_regs[j*NUM_STATUS +: REG_WIDTH];
+  generate for (x = 0; x < NUM_STATUS; x = x + 1) begin
+    assign status_int[x] = status_regs[((x+1)*REG_WIDTH-1) : x*REG_WIDTH];
   end endgenerate
   // Convert to 1 dimension packed array
-  generate for (j = 0; j < NUM_CFG; j = j+1) begin
-    assign config_regs[j*NUM_CFG +: REG_WIDTH] = config_mem[j];
+  generate for (y = 0; y < NUM_CFG; y = y + 1) begin
+    assign config_regs[((y+1)*REG_WIDTH-1) : y*REG_WIDTH] = config_mem[y];
   end endgenerate
 
 endmodule
