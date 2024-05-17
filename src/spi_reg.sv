@@ -49,7 +49,7 @@ module spi_reg #(
   // Mask with spi_cs_n
   logic spi_clk_pos_gated;
   logic spi_clk_neg_gated;
-  
+
   assign spi_clk_pos_gated = spi_clk_pos & ~spi_cs_n;
   assign spi_clk_neg_gated = spi_clk_neg & ~spi_cs_n;
 
