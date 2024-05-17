@@ -28,7 +28,7 @@ module spi_wrapper #(parameter int NUM_CFG = 8, parameter int NUM_STATUS = 8, pa
   logic reg_data_o_vld;
   logic [REG_WIDTH-1:0] config_mem [NUM_CFG];
   logic [REG_WIDTH-1:0] status_int [NUM_STATUS];
-  
+
   // Serial interface
   spi_reg #(
     .ADDR_W(ADDR_WIDTH),
