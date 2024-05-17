@@ -15,7 +15,9 @@ jobs:
 
       - name: Build GDS
         uses: TinyTapeout/tt-gds-action@tt07
-  
+          with:
+          flow: openlane2
+
   precheck:
     needs: gds
     runs-on: ubuntu-latest
