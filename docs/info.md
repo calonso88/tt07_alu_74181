@@ -30,7 +30,7 @@ SPI Slave peripheral implementation supports all 4 SPI modes of operation. 8 Con
 | ---| --- |
 | 0 | Configurable Read/Write register [0] - Data A (8 bits) |
 | 1 | Configurable Read/Write register [1] - Data B (8 bits) |
-| 2 | Configurable Read/Write register [2] |
+| 2 | Configurable Read/Write register [2] - c_in, M, S3, S2, S1, S0 [5:0] (6 bits) |
 | 3 | Configurable Read/Write register [3] |
 | 4 | Configurable Read/Write register [4] |
 | 5 | Configurable Read/Write register [5] |
