@@ -89,12 +89,13 @@ module tt_um_calonso88_74181 (
   // Assign status regs
   assign status_regs[7:0]   = f; // [0][7:0]
   assign status_regs[15:8]  = {c_out0, equal0, p0, g0, c_out1, equal1, p1, g1}; // [1][7:0]
-  assign status_regs[23:16] = decod; // [2][7:0]
-  assign status_regs[31:24] = 8'h00;
-  assign status_regs[39:32] = 8'h00;
-  assign status_regs[47:40] = 8'h00;
-  assign status_regs[55:48] = 8'h00;
-  assign status_regs[63:56] = 8'h00;
+  assign status_regs[20:16] = bin; // [2][3:0]
+  assign status_regs[23:21] = 4'h0; // [2][7:4]
+  assign status_regs[31:24] = decod; // [3][7:0]
+  assign status_regs[39:32] = 8'hC4;
+  assign status_regs[47:40] = 8'h10;
+  assign status_regs[55:48] = 8'h55;
+  assign status_regs[63:56] = 8'hAA;
 
   // SPI wrapper
   spi_wrapper #(.NUM_CFG(NUM_CFG), .NUM_STATUS(NUM_STATUS), .REG_WIDTH(REG_WIDTH)) spi_wrapper_i (.rstb(rst_n), .clk(clk), .ena(ena), .mode({cpol_sync, cpha_sync}), .spi_cs_n(spi_cs_n_sync), .spi_clk(spi_clk_sync), .spi_mosi(spi_mosi_sync), .spi_miso(spi_miso), .config_regs(config_regs), .status_regs(status_regs));
