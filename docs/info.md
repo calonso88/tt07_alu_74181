@@ -12,7 +12,11 @@ You can also include images in this folder and reference them in the markdown. E
 Replica of the famous 4-bit slice arithmetic logic unit (ALU).
 https://en.wikipedia.org/wiki/74181
 
-The project instantiate two times the replica of the 74818 to perform mathematical and logical operations on 8 bit words. In order to load the data for processing, a SPI slave peripheral has been created.
+The project instantiate two times the replica of the 74818 to perform mathematical and logical operations on 8 bit words.
+
+A multiplex to map data to a 7 segment display is also created to support debug.
+
+Due to I/O constraints, a SPI slave peripheral has been created to load/read data into the design.
 
 SPI Slave peripheral implementation supports all 4 SPI modes of operation. 8 Configurable (Read/Write) registers. 8 Status (Read only) registers.
 
