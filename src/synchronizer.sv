@@ -11,13 +11,19 @@ module synchronizer #(parameter int WIDTH = 4) (rstb, clk, ena, data_in, data_ou
   input logic [WIDTH-1:0] data_in;
 
   output logic [WIDTH-1:0] data_out;
+  
+  parameter int STAGES = 2;
 
-  logic [WIDTH-1:0] data_sync;
-  logic [WIDTH-1:0] data_sync2;
+  logic [WIDTH-1:0] data_sync [STAGES];
 
-  reclocking #(.WIDTH(WIDTH)) reclocking_i0 (.rstb(rstb), .clk(clk), .ena(ena), .data_in(data_in), .data_out(data_sync));
-  reclocking #(.WIDTH(WIDTH)) reclocking_i1 (.rstb(rstb), .clk(clk), .ena(ena), .data_in(data_sync), .data_out(data_sync2));
+  assign data_out = data_sync[0];
 
-  assign data_out = data_sync2;
+  generate
+    for (genvar i=0; i < STAGES-1; i++) begin : gen_reclocking
+      reclocking #(.WIDTH(WIDTH)) reclocking_i0 (.rstb(rstb), .clk(clk), .ena(ena), .data_in(data_sync[i]), .data_out(data_sync[i+1]));
+    end
+  endgenerate
+  
+  assign data_out = data_sync[STAGES-1];
 
 endmodule
