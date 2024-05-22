@@ -14,7 +14,7 @@ https://en.wikipedia.org/wiki/74181
 
 The project instantiate two times the replica of the 74818 to perform mathematical and logical operations on 8 bit words.
 
-A multiplex  is used to taps different parts of the user logic and map the outptu to a 7 segment display to support debug.
+A multiplex  is used to taps different parts of the user logic and map them to the 7 segment display to support debug.
 
 Due to I/O constraints, a SPI slave peripheral has been created to load/read data into the design.
 
