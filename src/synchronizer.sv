@@ -3,16 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-module synchronizer #(parameter int WIDTH = 4) (rstb, clk, ena, data_in, data_out);
+module synchronizer #(parameter int STAGES = 2, parameter int WIDTH = 4) (rstb, clk, ena, data_in, data_out);
 
   input logic rstb;
   input logic clk;
   input logic ena;
   input logic [WIDTH-1:0] data_in;
-
   output logic [WIDTH-1:0] data_out;
-  
-  parameter int STAGES = 2;
 
   logic [WIDTH-1:0] data_sync [STAGES+1];
 
