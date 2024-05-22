@@ -24,31 +24,31 @@ def xor_bit(value, bit_index):
   return temp
 
 def pull_cs_high(value):
-  temp = set_bit(value, 0)
+  temp = set_bit(value, 4)
   return temp
 
 def pull_cs_low(value):
-  temp = clear_bit(value, 0)
+  temp = clear_bit(value, 4)
   return temp
 
 def spi_clk_high(value):
-  temp = set_bit(value, 1)
+  temp = set_bit(value, 5)
   return temp
 
 def spi_clk_low(value):
-  temp = clear_bit(value, 1)
+  temp = clear_bit(value, 5)
   return temp
 
 def spi_clk_invert(value):
-  temp = xor_bit(value, 1)
+  temp = xor_bit(value, 5)
   return temp
 
 def spi_mosi_high(value):
-  temp = set_bit(value, 2)
+  temp = set_bit(value, 6)
   return temp
 
 def spi_mosi_low(value):
-  temp = clear_bit(value, 2)
+  temp = clear_bit(value, 6)
   return temp
 
 def spi_miso_read(port):
@@ -408,13 +408,14 @@ async def test_project(dut):
     # Config CPOL and CPHA
     CPOL = 0
     CPHA = 1
-    dut.ui_in.value = ((CPHA << 4) + (CPOL << 3)) + 1 # KEEP CS high
+    dut.ui_in.value = ((CPHA << 1) + (CPOL << 0))
+    dut.uio_in.value = (1 << 4) # DRIVE CS HIGH
     await ClockCycles(dut.clk, 10)
 
     # CPOL = 0, SPI_CLK low in idle
-    temp = dut.ui_in.value;
+    temp = dut.uio_in.value;
     result = spi_clk_low(temp)
-    dut.ui_in.value = result
+    dut.uio_in.value = result
 
     # Wait for some time
     await ClockCycles(dut.clk, 10)
@@ -434,55 +435,55 @@ async def test_project(dut):
         data7 = random.randint(0x00, 0xFF)
 
         # Write reg[0] = 0xF0
-        await spi_write (dut.clk, dut.ui_in, 0, data0)
+        await spi_write (dut.clk, dut.uio_in, 0, data0)
         # Write reg[1] = 0xDE
-        await spi_write (dut.clk, dut.ui_in, 1, data1)
+        await spi_write (dut.clk, dut.uio_in, 1, data1)
         # Write reg[2] = 0xAD
-        await spi_write (dut.clk, dut.ui_in, 2, data2)
+        await spi_write (dut.clk, dut.uio_in, 2, data2)
         # Write reg[3] = 0xBE
-        await spi_write (dut.clk, dut.ui_in, 3, data3)
+        await spi_write (dut.clk, dut.uio_in, 3, data3)
         # Write reg[4] = 0xEF
-        await spi_write (dut.clk, dut.ui_in, 4, data4)
+        await spi_write (dut.clk, dut.uio_in, 4, data4)
         # Write reg[5] = 0x55
-        await spi_write (dut.clk, dut.ui_in, 5, data5)
+        await spi_write (dut.clk, dut.uio_in, 5, data5)
         # Write reg[6] = 0xAA
-        await spi_write (dut.clk, dut.ui_in, 6, data6)
+        await spi_write (dut.clk, dut.uio_in, 6, data6)
         # Write reg[7] = 0x0F
-        await spi_write (dut.clk, dut.ui_in, 7, data7)
+        await spi_write (dut.clk, dut.uio_in, 7, data7)
 
         # Read reg[0]
-        reg0 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 0, 0x00)
+        reg0 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 0, 0x00)
         # Read reg[1]
-        reg1 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 1, 0x00)
+        reg1 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 1, 0x00)
         # Read reg[2]
-        reg2 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 2, 0x00)
+        reg2 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 2, 0x00)
         # Read reg[3]
-        reg3 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 3, 0x00)
+        reg3 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 3, 0x00)
         # Read reg[4]
-        reg4 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 4, 0x00)
+        reg4 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 4, 0x00)
         # Read reg[5]
-        reg5 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 5, 0x00)
+        reg5 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 5, 0x00)
         # Read reg[6]
-        reg6 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 6, 0x00)
+        reg6 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 6, 0x00)
         # Read reg[7]
-        reg7 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 7, 0x00)
+        reg7 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 7, 0x00)
 
         # Read status reg[0]
-        s_reg0 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 8, 0x00)
+        s_reg0 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 8, 0x00)
         # Read status reg[1]
-        s_reg1 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 9, 0x00)
+        s_reg1 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 9, 0x00)
         # Read status reg[2]
-        s_reg2 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 10, 0x00)
+        s_reg2 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 10, 0x00)
         # Read status reg[3]
-        s_reg3 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 11, 0x00)
+        s_reg3 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 11, 0x00)
         # Read status reg[4]
-        s_reg4 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 12, 0x00)
+        s_reg4 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 12, 0x00)
         # Read status reg[5]
-        s_reg5 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 13, 0x00)
+        s_reg5 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 13, 0x00)
         # Read status reg[6]
-        s_reg6 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 14, 0x00)
+        s_reg6 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 14, 0x00)
         # Read status reg[7]
-        s_reg7 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 15, 0x00)
+        s_reg7 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 15, 0x00)
 
         # Wait for some time
         await ClockCycles(dut.clk, 10)
@@ -515,13 +516,14 @@ async def test_project(dut):
     # Config CPOL and CPHA
     CPOL = 1
     CPHA = 1
-    dut.ui_in.value = ((CPHA << 4) + (CPOL << 3)) + 1 # KEEP CS high
+    dut.ui_in.value = ((CPHA << 1) + (CPOL << 0))
+    dut.uio_in.value = (1 << 4) # DRIVE CS HIGH
     await ClockCycles(dut.clk, 10)
 
     # CPOL = 1, SPI_CLK high in idle
-    temp = dut.ui_in.value;
+    temp = dut.uio_in.value;
     result = spi_clk_high(temp)
-    dut.ui_in.value = result
+    dut.uio_in.value = result
 
     # Wait for some time
     await ClockCycles(dut.clk, 10)
@@ -541,55 +543,55 @@ async def test_project(dut):
         data7 = random.randint(0x00, 0xFF)
 
         # Write reg[0] = 0xF0
-        await spi_write (dut.clk, dut.ui_in, 0, data0)
+        await spi_write (dut.clk, dut.uio_in, 0, data0)
         # Write reg[1] = 0xDE
-        await spi_write (dut.clk, dut.ui_in, 1, data1)
+        await spi_write (dut.clk, dut.uio_in, 1, data1)
         # Write reg[2] = 0xAD
-        await spi_write (dut.clk, dut.ui_in, 2, data2)
+        await spi_write (dut.clk, dut.uio_in, 2, data2)
         # Write reg[3] = 0xBE
-        await spi_write (dut.clk, dut.ui_in, 3, data3)
+        await spi_write (dut.clk, dut.uio_in, 3, data3)
         # Write reg[4] = 0xEF
-        await spi_write (dut.clk, dut.ui_in, 4, data4)
+        await spi_write (dut.clk, dut.uio_in, 4, data4)
         # Write reg[5] = 0x55
-        await spi_write (dut.clk, dut.ui_in, 5, data5)
+        await spi_write (dut.clk, dut.uio_in, 5, data5)
         # Write reg[6] = 0xAA
-        await spi_write (dut.clk, dut.ui_in, 6, data6)
+        await spi_write (dut.clk, dut.uio_in, 6, data6)
         # Write reg[7] = 0x0F
-        await spi_write (dut.clk, dut.ui_in, 7, data7)
+        await spi_write (dut.clk, dut.uio_in, 7, data7)
 
         # Read reg[0]
-        reg0 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 0, 0x00)
+        reg0 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 0, 0x00)
         # Read reg[1]
-        reg1 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 1, 0x00)
+        reg1 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 1, 0x00)
         # Read reg[2]
-        reg2 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 2, 0x00)
+        reg2 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 2, 0x00)
         # Read reg[3]
-        reg3 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 3, 0x00)
+        reg3 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 3, 0x00)
         # Read reg[4]
-        reg4 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 4, 0x00)
+        reg4 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 4, 0x00)
         # Read reg[5]
-        reg5 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 5, 0x00)
+        reg5 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 5, 0x00)
         # Read reg[6]
-        reg6 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 6, 0x00)
+        reg6 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 6, 0x00)
         # Read reg[7]
-        reg7 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 7, 0x00)
+        reg7 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 7, 0x00)
 
         # Read status reg[0]
-        s_reg0 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 8, 0x00)
+        s_reg0 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 8, 0x00)
         # Read status reg[1]
-        s_reg1 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 9, 0x00)
+        s_reg1 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 9, 0x00)
         # Read status reg[2]
-        s_reg2 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 10, 0x00)
+        s_reg2 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 10, 0x00)
         # Read status reg[3]
-        s_reg3 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 11, 0x00)
+        s_reg3 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 11, 0x00)
         # Read status reg[4]
-        s_reg4 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 12, 0x00)
+        s_reg4 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 12, 0x00)
         # Read status reg[5]
-        s_reg5 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 13, 0x00)
+        s_reg5 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 13, 0x00)
         # Read status reg[6]
-        s_reg6 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 14, 0x00)
+        s_reg6 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 14, 0x00)
         # Read status reg[7]
-        s_reg7 = await spi_read (dut.clk, dut.ui_in, dut.uo_out, 15, 0x00)
+        s_reg7 = await spi_read (dut.clk, dut.uio_in, dut.uio_out, 15, 0x00)
 
         # Wait for some time
         await ClockCycles(dut.clk, 10)
@@ -621,13 +623,14 @@ async def test_project(dut):
     # Config CPOL and CPHA
     CPOL = 0
     CPHA = 0
-    dut.ui_in.value = ((CPHA << 4) + (CPOL << 3)) + 1 # KEEP CS high
+    dut.ui_in.value = ((CPHA << 1) + (CPOL << 0))
+    dut.uio_in.value = (1 << 4) # DRIVE CS HIGH
     await ClockCycles(dut.clk, 10)
 
     # CPOL = 0, SPI_CLK low in idle
-    temp = dut.ui_in.value;
+    temp = dut.uio_in.value;
     result = spi_clk_low(temp)
-    dut.ui_in.value = result
+    dut.uio_in.value = result
 
     # Wait for some time
     await ClockCycles(dut.clk, 10)
@@ -647,55 +650,55 @@ async def test_project(dut):
         data7 = random.randint(0x00, 0xFF)
 
         # Write reg[0] = 0xF0
-        await spi_write_cpha0 (dut.clk, dut.ui_in, 0, data0)
+        await spi_write_cpha0 (dut.clk, dut.uio_in, 0, data0)
         # Write reg[1] = 0xDE
-        await spi_write_cpha0 (dut.clk, dut.ui_in, 1, data1)
+        await spi_write_cpha0 (dut.clk, dut.uio_in, 1, data1)
         # Write reg[2] = 0xAD
-        await spi_write_cpha0 (dut.clk, dut.ui_in, 2, data2)
+        await spi_write_cpha0 (dut.clk, dut.uio_in, 2, data2)
         # Write reg[3] = 0xBE
-        await spi_write_cpha0 (dut.clk, dut.ui_in, 3, data3)
+        await spi_write_cpha0 (dut.clk, dut.uio_in, 3, data3)
         # Write reg[4] = 0xEF
-        await spi_write_cpha0 (dut.clk, dut.ui_in, 4, data4)
+        await spi_write_cpha0 (dut.clk, dut.uio_in, 4, data4)
         # Write reg[5] = 0x55
-        await spi_write_cpha0 (dut.clk, dut.ui_in, 5, data5)
+        await spi_write_cpha0 (dut.clk, dut.uio_in, 5, data5)
         # Write reg[6] = 0xAA
-        await spi_write_cpha0 (dut.clk, dut.ui_in, 6, data6)
+        await spi_write_cpha0 (dut.clk, dut.uio_in, 6, data6)
         # Write reg[7] = 0x0F
-        await spi_write_cpha0 (dut.clk, dut.ui_in, 7, data7)
+        await spi_write_cpha0 (dut.clk, dut.uio_in, 7, data7)
 
         # Read reg[0]
-        reg0 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 0, 0x00)
+        reg0 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 0, 0x00)
         # Read reg[1]
-        reg1 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 1, 0x00)
+        reg1 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 1, 0x00)
         # Read reg[2]
-        reg2 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 2, 0x00)
+        reg2 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 2, 0x00)
         # Read reg[3]
-        reg3 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 3, 0x00)
+        reg3 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 3, 0x00)
         # Read reg[4]
-        reg4 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 4, 0x00)
+        reg4 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 4, 0x00)
         # Read reg[5]
-        reg5 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 5, 0x00)
+        reg5 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 5, 0x00)
         # Read reg[6]
-        reg6 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 6, 0x00)
+        reg6 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 6, 0x00)
         # Read reg[7]
-        reg7 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 7, 0x00)
+        reg7 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 7, 0x00)
 
         # Read status reg[0]
-        s_reg0 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 8, 0x00)
+        s_reg0 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 8, 0x00)
         # Read status reg[1]
-        s_reg1 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 9, 0x00)
+        s_reg1 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 9, 0x00)
         # Read status reg[2]
-        s_reg2 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 10, 0x00)
+        s_reg2 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 10, 0x00)
         # Read status reg[3]
-        s_reg3 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 11, 0x00)
+        s_reg3 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 11, 0x00)
         # Read status reg[4]
-        s_reg4 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 12, 0x00)
+        s_reg4 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 12, 0x00)
         # Read status reg[5]
-        s_reg5 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 13, 0x00)
+        s_reg5 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 13, 0x00)
         # Read status reg[6]
-        s_reg6 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 14, 0x00)
+        s_reg6 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 14, 0x00)
         # Read status reg[7]
-        s_reg7 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 15, 0x00)
+        s_reg7 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 15, 0x00)
 
         await ClockCycles(dut.clk, 10)
         await ClockCycles(dut.clk, 10)
@@ -727,13 +730,14 @@ async def test_project(dut):
     # Config CPOL and CPHA
     CPOL = 1
     CPHA = 0
-    dut.ui_in.value = ((CPHA << 4) + (CPOL << 3)) + 1 # KEEP CS high
+    dut.ui_in.value = ((CPHA << 1) + (CPOL << 0))
+    dut.uio_in.value = (1 << 4) # DRIVE CS HIGH
     await ClockCycles(dut.clk, 10)
 
     # CPOL = 1, SPI_CLK high in idle
-    temp = dut.ui_in.value;
+    temp = dut.uio_in.value;
     result = spi_clk_high(temp)
-    dut.ui_in.value = result
+    dut.uio_in.value = result
 
     # Wait for some time
     await ClockCycles(dut.clk, 10)
@@ -753,55 +757,55 @@ async def test_project(dut):
         data7 = random.randint(0x00, 0xFF)
 
         # Write reg[0] = 0xF0
-        await spi_write_cpha0 (dut.clk, dut.ui_in, 0, data0)
+        await spi_write_cpha0 (dut.clk, dut.uio_in, 0, data0)
         # Write reg[1] = 0xDE
-        await spi_write_cpha0 (dut.clk, dut.ui_in, 1, data1)
+        await spi_write_cpha0 (dut.clk, dut.uio_in, 1, data1)
         # Write reg[2] = 0xAD
-        await spi_write_cpha0 (dut.clk, dut.ui_in, 2, data2)
+        await spi_write_cpha0 (dut.clk, dut.uio_in, 2, data2)
         # Write reg[3] = 0xBE
-        await spi_write_cpha0 (dut.clk, dut.ui_in, 3, data3)
+        await spi_write_cpha0 (dut.clk, dut.uio_in, 3, data3)
         # Write reg[4] = 0xEF
-        await spi_write_cpha0 (dut.clk, dut.ui_in, 4, data4)
+        await spi_write_cpha0 (dut.clk, dut.uio_in, 4, data4)
         # Write reg[5] = 0x55
-        await spi_write_cpha0 (dut.clk, dut.ui_in, 5, data5)
+        await spi_write_cpha0 (dut.clk, dut.uio_in, 5, data5)
         # Write reg[6] = 0xAA
-        await spi_write_cpha0 (dut.clk, dut.ui_in, 6, data6)
+        await spi_write_cpha0 (dut.clk, dut.uio_in, 6, data6)
         # Write reg[7] = 0x0F
-        await spi_write_cpha0 (dut.clk, dut.ui_in, 7, data7)
+        await spi_write_cpha0 (dut.clk, dut.uio_in, 7, data7)
 
         # Read reg[0]
-        reg0 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 0, 0x00)
+        reg0 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 0, 0x00)
         # Read reg[1]
-        reg1 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 1, 0x00)
+        reg1 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 1, 0x00)
         # Read reg[2]
-        reg2 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 2, 0x00)
+        reg2 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 2, 0x00)
         # Read reg[3]
-        reg3 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 3, 0x00)
+        reg3 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 3, 0x00)
         # Read reg[4]
-        reg4 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 4, 0x00)
+        reg4 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 4, 0x00)
         # Read reg[5]
-        reg5 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 5, 0x00)
+        reg5 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 5, 0x00)
         # Read reg[6]
-        reg6 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 6, 0x00)
+        reg6 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 6, 0x00)
         # Read reg[7]
-        reg7 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 7, 0x00)
+        reg7 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 7, 0x00)
 
         # Read status reg[0]
-        s_reg0 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 8, 0x00)
+        s_reg0 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 8, 0x00)
         # Read status reg[1]
-        s_reg1 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 9, 0x00)
+        s_reg1 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 9, 0x00)
         # Read status reg[2]
-        s_reg2 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 10, 0x00)
+        s_reg2 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 10, 0x00)
         # Read status reg[3]
-        s_reg3 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 11, 0x00)
+        s_reg3 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 11, 0x00)
         # Read status reg[4]
-        s_reg4 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 12, 0x00)
+        s_reg4 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 12, 0x00)
         # Read status reg[5]
-        s_reg5 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 13, 0x00)
+        s_reg5 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 13, 0x00)
         # Read status reg[6]
-        s_reg6 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 14, 0x00)
+        s_reg6 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 14, 0x00)
         # Read status reg[7]
-        s_reg7 = await spi_read_cpha0 (dut.clk, dut.ui_in, dut.uo_out, 15, 0x00)
+        s_reg7 = await spi_read_cpha0 (dut.clk, dut.uio_in, dut.uio_out, 15, 0x00)
 
         # Wait for some time
         await ClockCycles(dut.clk, 10)
