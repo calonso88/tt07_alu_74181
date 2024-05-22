@@ -24,6 +24,6 @@ module synchronizer #(parameter int WIDTH = 4) (rstb, clk, ena, data_in, data_ou
     end
   endgenerate
   
-  assign data_out = data_sync[STAGES+1];
+  assign data_out = data_sync[STAGES];
 
 endmodule
