@@ -80,6 +80,7 @@ module tt_um_calonso88_74181 (
   wire [2:0] decod_sel;
   wire [3:0] bin;
   wire [7:0] decod;
+  wire [7:0] decod_reg;
   
   // Assign config regs
   assign a = config_regs[7:0];    // [0][7:0]
@@ -99,7 +100,7 @@ module tt_um_calonso88_74181 (
   assign status_regs[39:32] = 8'hC4;
   assign status_regs[47:40] = 8'h10;
   assign status_regs[55:48] = 8'h55;
-  assign status_regs[63:56] = 8'hAA;
+  assign status_regs[63:56] = decod_reg; // [7][7:0]
 
   // SPI wrapper
   spi_wrapper #(.NUM_CFG(NUM_CFG), .NUM_STATUS(NUM_STATUS), .REG_WIDTH(REG_WIDTH)) spi_wrapper_i (.rstb(rst_n), .clk(clk), .ena(ena), .mode({cpol_sync, cpha_sync}), .spi_cs_n(spi_cs_n_sync), .spi_clk(spi_clk_sync), .spi_mosi(spi_mosi_sync), .spi_miso(spi_miso), .config_regs(config_regs), .status_regs(status_regs));
@@ -113,5 +114,8 @@ module tt_um_calonso88_74181 (
 
   // Binary to 7 segments display decoder
   bin_to_7seg_decoder bin_to_7seg_decoder_inst (.bin(bin), .a(decod[0]), .b(decod[1]), .c(decod[2]), .d(decod[3]), .e(decod[4]), .f(decod[5]), .g(decod[6]), .dp(decod[7]));
+
+  // Reclocking output of bin_to_7seg_decoder
+  reclocking #(.WIDTH(SYNC_WIDTH)) reclocking_7seg (.rstb(rst_n), .clk(clk), .ena(ena), .data_in(decod), .data_out(decode_reg));
 
 endmodule
