@@ -94,8 +94,8 @@ module tt_um_calonso88_74181 (
   // Assign status regs
   assign status_regs[7:0]   = f; // [0][7:0]
   assign status_regs[15:8]  = {c_out0, equal0, p0, g0, c_out1, equal1, p1, g1}; // [1][7:0]
-  assign status_regs[20:16] = bin; // [2][3:0]
-  assign status_regs[23:21] = 4'h0; // [2][7:4]
+  assign status_regs[19:16] = bin; // [2][3:0]
+  assign status_regs[23:20] = 4'h0; // [2][7:4]
   assign status_regs[31:24] = decod; // [3][7:0]
   assign status_regs[39:32] = 8'hC4;
   assign status_regs[47:40] = 8'h10;
