@@ -19,7 +19,7 @@ module synchronizer #(parameter int WIDTH = 4) (rstb, clk, ena, data_in, data_ou
   assign data_out = data_sync[0];
 
   generate
-    for (genvar i=0; i < STAGES-1; i++) begin : gen_reclocking
+    for (genvar i=0; i<STAGES; i++) begin : gen_reclocking
       reclocking #(.WIDTH(WIDTH)) reclocking_i0 (.rstb(rstb), .clk(clk), .ena(ena), .data_in(data_sync[i]), .data_out(data_sync[i+1]));
     end
   endgenerate
