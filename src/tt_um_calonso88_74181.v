@@ -116,6 +116,6 @@ module tt_um_calonso88_74181 (
   bin_to_7seg_decoder bin_to_7seg_decoder_inst (.bin(bin), .a(decod[0]), .b(decod[1]), .c(decod[2]), .d(decod[3]), .e(decod[4]), .f(decod[5]), .g(decod[6]), .dp(decod[7]));
 
   // Reclocking output of bin_to_7seg_decoder
-  reclocking #(.WIDTH(SYNC_WIDTH)) reclocking_7seg (.rstb(rst_n), .clk(clk), .ena(ena), .data_in(decod), .data_out(decode_reg));
+  reclocking #(.WIDTH(REG_WIDTH)) reclocking_7seg (.rstb(rst_n), .clk(clk), .ena(ena), .data_in(decod), .data_out(decode_reg));
 
 endmodule
