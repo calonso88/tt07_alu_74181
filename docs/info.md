@@ -14,11 +14,13 @@ https://en.wikipedia.org/wiki/74181
 
 The project instantiate two times the replica of the 74818 to perform mathematical and logical operations on 8 bit words.
 
-A multiplex to map data to a 7 segment display is also created to support debug.
+A multiplex  is used to taps different parts of the user logic and map the outptu to a 7 segment display to support debug.
 
 Due to I/O constraints, a SPI slave peripheral has been created to load/read data into the design.
 
 SPI Slave peripheral implementation supports all 4 SPI modes of operation. 8 Configurable (Read/Write) registers. 8 Status (Read only) registers.
+
+SPI IOs mapped to interface SPI1 GPIOs 24 to 27.
 
 ## Limitations on SPI:
  - Single register access per SPI transaction.
@@ -88,7 +90,7 @@ cmd = 0x00+addr, addr = 0 ~ 15
 
 ## How to test
 
-Use SPI Master peripheral in RP2040 to start communication on SPI interface towards this design. Remember to configure the SPI mode using the switches in DIP switch and configure the SPI mode in the RP2040 accordingly.
+Use SPI1 Master peripheral in RP2040 to start communication on SPI interface towards this design. Remember to configure the SPI mode using the switches in DIP switch and configure the SPI mode in the RP2040 accordingly.
 
 ## External hardware
 
