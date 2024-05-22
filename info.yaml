@@ -26,6 +26,7 @@ project:
     - "falling_edge_detector.sv"
     - "rising_edge_detector.sv"
     - "mux6x1.sv"
+    - "reclocking.sv"
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 pinout:
