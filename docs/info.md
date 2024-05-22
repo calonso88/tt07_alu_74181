@@ -20,7 +20,7 @@ Due to I/O constraints, a SPI slave peripheral has been created to load/read dat
 
 SPI Slave peripheral implementation supports all 4 SPI modes of operation. 8 Configurable (Read/Write) registers. 8 Status (Read only) registers.
 
-SPI IOs mapped to interface SPI1 GPIOs 24 to 27.
+RP2040 SPI1 is used to communicate with the device. Map SPI1 IOs to GPIOs 24 to 27.
 
 ## Limitations on SPI:
  - Single register access per SPI transaction.
