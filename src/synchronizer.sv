@@ -14,9 +14,9 @@ module synchronizer #(parameter int WIDTH = 4) (rstb, clk, ena, data_in, data_ou
   
   parameter int STAGES = 2;
 
-  logic [WIDTH-1:0] data_sync [STAGES];
+  logic [WIDTH-1:0] data_sync [STAGES+1];
 
-  assign data_out = data_sync[0];
+  assign data_sync[0] = data_in;
 
   generate
     for (genvar i=0; i<STAGES; i++) begin : gen_reclocking
@@ -24,6 +24,6 @@ module synchronizer #(parameter int WIDTH = 4) (rstb, clk, ena, data_in, data_ou
     end
   endgenerate
   
-  assign data_out = data_sync[STAGES-1];
+  assign data_out = data_sync[STAGES+1];
 
 endmodule
