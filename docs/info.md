@@ -44,12 +44,12 @@ RP2040 SPI1 is used to communicate with the device. Map SPI1 IOs to GPIOs 24 to 
 | 7 | Configurable Read/Write register [7] |
 | 8 | Status Read Only register [0] - Data F (8 bits)||
 | 9 | Status Read Only register [1] - {c_out0, equal0, p0, g0, c_out1, equal1, p1, g1} [7:0] (8 bits) |
-| 10 | Status Read Only register [2] |
-| 11 | Status Read Only register [3] |
-| 12 | Status Read Only register [4] |
-| 13 | Status Read Only register [5] |
-| 14 | Status Read Only register [6] |
-| 15 | Status Read Only register [7] |
+| 10 | Status Read Only register [2] - Output of debug Multiplexer [3:0] (4 bits) and Zeros [7:4] (4 bits) |
+| 11 | Status Read Only register [3] - Output of bin_to_7seg_decoder (8 bits) |
+| 12 | Status Read Only register [4] - Fixed data 8'hC4 (8 bits) |
+| 13 | Status Read Only register [5] - Fixed data 8'h10 (8 bits) |
+| 14 | Status Read Only register [6] - Fixed data 8'h66 (8 bits) |
+| 15 | Status Read Only register [7] - Output of bin_to_7seg_decoder delayed by 1 clock cycle (8 bits) |
 
 ## Connection
 
