@@ -15,17 +15,8 @@ module synchronizer #(parameter int WIDTH = 4) (rstb, clk, ena, data_in, data_ou
   logic [WIDTH-1:0] data_sync;
   logic [WIDTH-1:0] data_sync2;
 
-  always_ff @(negedge(rstb) or posedge(clk)) begin
-    if (!rstb) begin
-      data_sync <= '0;
-      data_sync2 <= '0;
-    end else begin
-      if (ena == 1'b1) begin
-        data_sync <= data_in;
-        data_sync2 <= data_sync;
-      end
-    end
-  end
+  reclocking reclocking_i0 #(.WIDTH(WIDTH)) (.rstb(rstb), .clk(clk), .ena(ena), .data_in(data_in), .data_out(data_sync));
+  reclocking reclocking_i1 #(.WIDTH(WIDTH)) (.rstb(rstb), .clk(clk), .ena(ena), .data_in(data_sync), .data_out(data_sync2));
 
   assign data_out = data_sync2;
 
