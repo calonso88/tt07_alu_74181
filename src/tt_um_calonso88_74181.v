@@ -73,7 +73,7 @@ module tt_um_calonso88_74181 (
   // Auxiliar mapping signals
   wire [15:0] a, b;
   wire [3:0] s;
-  wire c_in0, m, c_out0, cout1, cout2, cout3, equal0, p0, g0, equal1, p1, g1, equal2, p2, g2, equal3, p3, g3;
+  wire c_in0, m, c_out0, c_out1, c_out2, c_out3, equal0, p0, g0, equal1, p1, g1, equal2, p2, g2, equal3, p3, g3;
   wire [15:0] f;
   wire [2:0] decod_sel;
   wire [3:0] bin;
