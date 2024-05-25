@@ -108,8 +108,8 @@ module tt_um_calonso88_74181 (
   // 74181 ALU
   alu_74181 alu_74181_i0 (.a(a[3:0]),   .b(b[3:0]),   .cn(c_in0),  .s(s), .m(m), .f(f[3:0]),   .cn4(c_out0), .equal(equal0), .p(p0), .g(g0));
   alu_74181 alu_74181_i1 (.a(a[7:4]),   .b(b[7:4]),   .cn(c_out0), .s(s), .m(m), .f(f[7:4]),   .cn4(c_out1), .equal(equal1), .p(p1), .g(g1));
-  alu_74181 alu_74181_i0 (.a(a[11:8]),  .b(b[11:8]),  .cn(c_out1), .s(s), .m(m), .f(f[11:8]),  .cn4(c_out2), .equal(equal2), .p(p2), .g(g2));
-  alu_74181 alu_74181_i1 (.a(a[15:12]), .b(b[15:12]), .cn(c_out2), .s(s), .m(m), .f(f[15:12]), .cn4(c_out3), .equal(equal3), .p(p3), .g(g3));
+  alu_74181 alu_74181_i2 (.a(a[11:8]),  .b(b[11:8]),  .cn(c_out1), .s(s), .m(m), .f(f[11:8]),  .cn4(c_out2), .equal(equal2), .p(p2), .g(g2));
+  alu_74181 alu_74181_i3 (.a(a[15:12]), .b(b[15:12]), .cn(c_out2), .s(s), .m(m), .f(f[15:12]), .cn4(c_out3), .equal(equal3), .p(p3), .g(g3));
 
   // Mux for 7seg display
   mux6x1 mux6x1_i (.sel(decod_sel), .a(a[3:0]), .b(a[7:4]), .c(b[3:0]), .d(b[7:4]), .e(f[3:0]), .f(f[7:4]), .dout(bin));
