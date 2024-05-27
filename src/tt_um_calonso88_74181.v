@@ -112,8 +112,8 @@ module tt_um_calonso88_74181 (
   alu_74181 alu_74181_i3 (.a(a[15:12]), .b(b[15:12]), .cn(c_out2), .s(s), .m(m), .f(f[15:12]), .cn4(c_out3), .equal(equal3), .p(p3), .g(g3));
 
   // Mux for 7seg display
-  mux6x1 mux6x1_i0 (.sel(decod_sel), .a(a[3:0]),  .b(a[7:4]),   .c(b[3:0]),  .d(b[7:4]),   .e(f[3:0]),  .f(f[7:4]),   .dout(bin0));
-  mux6x1 mux6x1_i1 (.sel(decod_sel), .a(a[11:8]), .b(a[15:12]), .c(b[11:8]), .d(b[15:12]), .e(f[11:8]), .f(f[15:12]), .dout(bin1));
+  mux6x1 mux6x1_i0 (.sel(decod_sel[2:0]), .a(a[3:0]),  .b(a[7:4]),   .c(b[3:0]),  .d(b[7:4]),   .e(f[3:0]),  .f(f[7:4]),   .dout(bin0));
+  mux6x1 mux6x1_i1 (.sel(decod_sel[2:0]), .a(a[11:8]), .b(a[15:12]), .c(b[11:8]), .d(b[15:12]), .e(f[11:8]), .f(f[15:12]), .dout(bin1));
   assign bin = (decod_sel[3] == 1'b1) ? bin1 : bin0;
 
   // Binary to 7 segments display decoder
