@@ -77,6 +77,7 @@ cmd = 0x80+addr, addr = 0 ~ 7
     CS:     1  |   0  |      0     |      0     |      0     |    0    |    0    |    0    |    0    |    0    |    0    |    0    |    0    |    0    |    0    |    0    |    0    |  1
 ```
 
+Wavedrom for Write data transfer:
 ```wavedrom
 {signal: [
   {name: 'spi_cs', wave: '10................1'},
@@ -103,6 +104,7 @@ cmd = 0x00+addr, addr = 0 ~ 15
     CS:   1  |   0  |      0     |      0     |      0     |    0    |    0    |    0    |    0    |       0       |       0       |       0       |       0       |       0       |       0       |       0       |       0       |  1
 ```
 
+Wavedrom for Read data transfer:
 ```wavedrom
 {signal: [
   {name: 'spi_cs', wave: '10................1'},
