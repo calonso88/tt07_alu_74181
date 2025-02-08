@@ -78,7 +78,7 @@ cmd = 0x80+addr, addr = 0 ~ 7
 ```
 
 Wavedrom for Write data transfer:
-```wavedrom
+wavedrom (
 {signal: [
   {name: 'spi_cs', wave: '10................1'},
   {name: 'spi_clk', wave: '0.P..............P0'},
@@ -91,7 +91,7 @@ head: {text:
 },
 config: { hscale: 2 },
 }
-```
+)
 
 
 * Read data
@@ -105,7 +105,7 @@ cmd = 0x00+addr, addr = 0 ~ 15
 ```
 
 Wavedrom for Read data transfer:
-```wavedrom
+wavedrom (
 {signal: [
   {name: 'spi_cs', wave: '10................1'},
   {name: 'spi_clk', wave: '0.P..............P0'},
@@ -118,7 +118,7 @@ head: {text:
 },
 config: { hscale: 2 },
 }
-```
+)
 
 ## How to test
 
