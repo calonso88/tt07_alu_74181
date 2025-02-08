@@ -124,7 +124,7 @@ config: { hscale: 2 },
 
 Use SPI1 Master peripheral in RP2040 to start communication on SPI interface towards this design. Remember to configure the SPI mode using the switches in DIP switch (if you'd like to have CPOL=1 and CPHA=1). Alternatively, don't use the DIP switches and use the RP2040 GPIOs to configure the SPI mode in the desired mode.
 
-Example code to use in REPL:
+Example code to initialize SPI in REPL:
 ```txt
 spi_miso = tt.pins.pin_uio3
 spi_cs = tt.pins.pin_uio4
@@ -136,7 +136,13 @@ spi_clk.init(spi_clk.OUT)
 spi_mosi.init(spi_mosi.OUT)
 machine.SoftSPI(baudrate=10000, polarity=0, phase=0, bits=8, firstbit=machine.SPI.MSB, sck=spi_clk, mosi=spi_mosi, miso=spi_miso)
 spi_cs(1)
-spi_cs(0); spi.write(b'\x80\xa5'); spi_cs(1) // Writes to Address[0] Data: A5
+```
+Example code to Write to Addres[0] Data 0xA5:
+```txt
+spi_cs(0); spi.write(b'\x80\xa5'); spi_cs(1)
+```
+Example code to Read from Addres[14]:
+```txt
 spi_cs(0); spi.write(b'\x0C'); spi.read(1); spi_cs(1) // Read Address[12]
 ```
 
