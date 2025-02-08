@@ -77,6 +77,22 @@ cmd = 0x80+addr, addr = 0 ~ 7
     CS:     1  |   0  |      0     |      0     |      0     |    0    |    0    |    0    |    0    |    0    |    0    |    0    |    0    |    0    |    0    |    0    |    0    |  1
 ```
 
+```wavedrom
+{signal: [
+  {name: 'spi_cs', wave: '10................1'},
+  {name: 'spi_clk', wave: '0.P..............P0'},
+  {name: 'spi_mosi', wave: 'z1x..333344444444zz', data: ['Addr[3]', 'Addr[2]', 'Addr[1]', 'Addr[0]', 'Data[7]', 'Data[6]', 'Data[5]', 'Data[4]', 'Data[3]', 'Data[2]', 'Data[1]', 'Data[0]']},
+  {name: 'spi_miso', wave: '0..................'}],
+head: {text:
+  ['tspan',
+    ['tspan', {class:'error h3'}, 'Write transfer '],
+  ]
+},
+config: { hscale: 2 },
+}
+```
+
+
 * Read data
 cmd = 0x00+addr, addr = 0 ~ 15
 
@@ -87,6 +103,20 @@ cmd = 0x00+addr, addr = 0 ~ 15
     CS:   1  |   0  |      0     |      0     |      0     |    0    |    0    |    0    |    0    |       0       |       0       |       0       |       0       |       0       |       0       |       0       |       0       |  1
 ```
 
+```wavedrom
+{signal: [
+  {name: 'spi_cs', wave: '10................1'},
+  {name: 'spi_clk', wave: '0.P..............P0'},
+  {name: 'spi_mosi', wave: 'z0x..3333xxxxxxxxzz', data: ['Addr[3]', 'Addr[2]', 'Addr[1]', 'Addr[0]']},
+  {name: 'spi_miso', wave: 'z0.......33333333zz', data: ['Data[7]', 'Data[6]', 'Data[5]', 'Data[4]', 'Data[3]', 'Data[2]', 'Data[1]', 'Data[0]']}],
+head: {text:
+  ['tspan',
+    ['tspan', {class:'error h3'}, 'Read transfer '],
+  ]
+},
+config: { hscale: 2 },
+}
+```
 
 ## How to test
 
