@@ -141,7 +141,7 @@ Example code to Write to Addres[0] Data 0xA5:
 ```txt
 spi_cs(0); spi.write(b'\x80\xa5'); spi_cs(1)
 ```
-Example code to Read from Addres[14]:
+Example code to Read from Addres[12]:
 ```txt
 spi_cs(0); spi.write(b'\x0C'); spi.read(1); spi_cs(1)
 ```
