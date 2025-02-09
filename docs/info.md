@@ -143,7 +143,7 @@ spi_cs(0); spi.write(b'\x80\xa5'); spi_cs(1)
 ```
 Example code to Read from Addres[14]:
 ```txt
-spi_cs(0); spi.write(b'\x0C'); spi.read(1); spi_cs(1) // Read Address[12]
+spi_cs(0); spi.write(b'\x0C'); spi.read(1); spi_cs(1)
 ```
 
 ## External hardware
