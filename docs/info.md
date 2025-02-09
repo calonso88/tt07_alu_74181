@@ -134,7 +134,7 @@ spi_miso.init(spi_miso.IN, spi_miso.PULL_DOWN)
 spi_cs.init(spi_cs.OUT)
 spi_clk.init(spi_clk.OUT)
 spi_mosi.init(spi_mosi.OUT)
-machine.SoftSPI(baudrate=10000, polarity=0, phase=0, bits=8, firstbit=machine.SPI.MSB, sck=spi_clk, mosi=spi_mosi, miso=spi_miso)
+spi = machine.SoftSPI(baudrate=10000, polarity=0, phase=0, bits=8, firstbit=machine.SPI.MSB, sck=spi_clk, mosi=spi_mosi, miso=spi_miso)
 spi_cs(1)
 ```
 Example code to Write to Addres[0] Data 0xA5:
